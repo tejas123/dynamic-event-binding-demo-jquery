@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<script src="jquery.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("#addImgDynamic").click(function(){
+					var nextID = 'id' + (new Date()).getTime();
+					var html = "<div id=\"div"+nextID+"\">";
+					html += "<br><input name=\"Image[]\" id='"+nextID+"' type=\"file\" accept=\"image/*\" class=\"filestyle\" >";
+					html += "<div id='pre"+nextID+"' ><img alt=''  width=\"75\" src=\"\"/></div>";
+					html += "<a href=\"javascript:void(0);\" id='rem"+nextID+"' class=\"remImg\">Remove</a></div></div>";
+					$("#divImages").append(html);
+				});
+
+				$("#divImages").on('click','.remImg',function(){
+					$("#" + $(this).attr("id")).parent().remove();
+				});
+			
+				$(document).on("change", ".filestyle", function(event) {
+					var tmppath = URL.createObjectURL(event.target.files[0]);
+					$("#pre" + $(this).attr("id") + " img").attr('src', tmppath);
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div id="divImages">
+        	<label>Dynamic Photo Upload:</label>&nbsp;&nbsp;
+        	<button id="addImgDynamic">Add Image</button>
+        </div>
+	</body>
+</html>
